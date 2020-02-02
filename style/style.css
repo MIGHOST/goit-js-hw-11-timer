@@ -1,0 +1,61 @@
+.timer {
+    display: flex;
+    background: #000;
+    color: #00bd00;
+    width: 800px;
+    height: 100px;
+    justify-content: space-between;
+    margin: 0 auto;
+    font-weight: 400;
+    font-size: 24px;
+    font-family: 'Matrix';
+ 
+}
+
+.field {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 0 55px;
+   
+    /* justify-content: space-between; */
+    /* align-items: space-between;     */
+}
+.value{
+ font-size: 40px;
+ text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 30px #49FF18, 0 0 40px #49FF18, 0 0 55px #49FF18, 0 0 75px #49ff18;
+ margin: 0 auto;
+ padding: 10px ;
+}
+
+.label{
+    font-family: Led;
+    
+   
+}
+
+
+  
+
+   @font-face { 
+    font-family: 'Matrix';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./font/matrix_vs_miltown.ttf') format('truetype'); 
+   } 
+
+
+   @font-face { 
+    font-family: 'Future';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./font/Futureworld-ZGwJ.ttf') format('truetype'); 
+   } 
+
+   
+   @font-face { 
+    font-family: 'Led';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./font/LcdPhone-wgZ2.ttf') format('truetype'); 
+   } 
+
