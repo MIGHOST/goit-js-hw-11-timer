@@ -1,31 +1,61 @@
 "use strict";
-new CountdownTimer({
-    selector: '#timer-1',
-    targetDate: new Date('Jul 17, 2019'),
-  });
 
 
-  /*
- * Оставшиеся дни: делим значение UTC на 1000 * 60 * 60 * 24, количество
- * миллисекунд в одном дне (миллисекунды * секунды * минуты * часы)
- */
-const days = Math.floor(time / (1000 * 60 * 60 * 24));
+class Timer {
+  constructor({
+    selector,
+    targetDate
+  }) {
+    this.selector = selector;
+    this.targetDate = targetDate;
+    this.days = document.querySelector('span[data-value="days"]'),
+      this.hours = document.querySelector('span[data-value="hours"]'),
+      this.minutes = document.querySelector('span[data-value="mins"]'),
+      this.seconds = document.querySelector('span[data-value="secs"]')
+      this.timerId = 0;
+      this.startTime = Date.now();
+      this.deltaTime = this.targetDate.getTime() - this.startTime;
+      this.updateTimer(this.deltaTime);
+      this.start()
+    }
 
-/*
- * Оставшиеся часы: получаем остаток от предыдущего расчета с помощью оператора
- * остатка % и делим его на количество миллисекунд в одном часе
- * (1000 * 60 * 60 = миллисекунды * минуты * секунды)
- */
-const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
-/*
- * Оставшиеся минуты: получаем оставшиеся минуты и делим их на количество
- * миллисекунд в одной минуте (1000 * 60 = миллисекунды * секунды)
- */
-const mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+    start() {
+      this.timerId = setInterval(() => {
+        this.startTime = Date.now();
+    
+        this.deltaTime = this.targetDate.getTime() - this.startTime;
+    
+        if (this.deltaTime < 0) {
+          this.stop();
+        }
+    
+        this.updateTimer(this.deltaTime);
+      }, 1000);
+    }
+    
+    stop() {
+      clearInterval(this.timerId);
+      this.deltaTime = 0;
+      this.updateTimer(this.deltaTime)
+    }
+    updateTimer(time) {
+      this.days.textContent = this.pad(Math.floor(time / (1000 * 60 * 60 * 24)));
+      this.hours.textContent = this.pad(
+        Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+      );
+      this.minutes.textContent = this.pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
+      this.seconds.textContent = this.pad(Math.floor((time % (1000 * 60)) / 1000));
+    
+    }
 
-/*
- * Оставшиеся секунды: получаем оставшиеся секунды и делим их на количество
- * миллисекунд в одной секунде (1000)
- */
-const secs = Math.floor((time % (1000 * 60)) / 1000);
+  pad(value) {
+  return String(value).padStart(2, '0');
+}
+};
+
+new Timer({
+  selector: '#timer-1',
+  targetDate: new Date('Jul 17, 2020'),
+});
+
